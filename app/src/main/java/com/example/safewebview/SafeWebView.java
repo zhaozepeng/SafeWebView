@@ -86,8 +86,21 @@ public class SafeWebView extends WebView {
     private void init() {
         setWebChromeClient(new WebChromeClientEx());
         setWebViewClient(new WebViewClientEx());
+        safeSetting();
 
         removeUnSafeJavascriptImpl();
+    }
+
+    /**
+     * 安全性设置
+     */
+    private void safeSetting() {
+        getSettings().setSavePassword(false);
+        getSettings().setAllowFileAccess(false);//设置为 false 将不能加载本地 html 文件
+        if (Build.VERSION.SDK_INT >= 16) {
+            getSettings().setAllowFileAccessFromFileURLs(false);
+            getSettings().setAllowUniversalAccessFromFileURLs(false);
+        }
     }
 
     /**
